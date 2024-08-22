@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="CompanyName">
+            <img class="Companylogo"src="{{ url_for('static', filename='logo.png') }}" alt="">
+            <h1 class="navbar-logo">BullBearhub</h1>
+        </div>
+            <div class="navbar-links">
+                <a href="#home" class="navbar-link">Home</a>
+                <a href="#about" class="navbar-link">About</a>
+                <a href="#contact" class="navbar-link">Contact Us</a>
+                <a href="{{ url_for('login') }}" class="navbar-link button">Sign In</a>
+                <a href="{{ url_for('register') }}" class="navbar-link button"  >Sign Up</a>
+                
+            </div>
+        </div>
+    </nav>
+    <div class="registration-container" id="registration-container"></div>
+    <div class="loginpage" id="loginpage"></div>
+    
+
+    
+    <div class="hero-section">
+        <div class="simg">
+            <!-- <div class="fimg">
+                <img src="infoimg.png" alt="" width="50%" style="margin: 30px;" height="700vh">
+            </div> -->
+            <div class="line"></div>
+            <div class="info">
+                <span>Let’s build from here</span>
+                <p>The world’s leading Stock developer platform.</p>
+            </div>
+
+            <div class="email-info">
+                <label for="Email">Email address</label>
+                <div class="email-input-container">
+                    <input type="email" name="Email" id="Email" placeholder="Enter your email">
+                    <a href="{{ url_for('register') }}"><button>Sign up for StockMarket</button></a>
+                </div>
+            </div>
+
+            <div class="logos">
+                <p>Trusted by the world’s leading organizations ↘︎</p>
+
+                <div class="com-img">
+                    <img src="{{ url_for('static', filename='logo1.svg') }}" alt="">
+                    <img src="{{ url_for('static', filename='logo2.svg') }}" alt="">
+                    <img src="{{ url_for('static', filename='logo3.svg') }}" alt="">
+                    <img src="{{ url_for('static', filename='logo4.svg') }}" alt="">
+                    <img src="{{ url_for('static', filename='logo5.svg') }}" alt="">
+                    <img src="{{ url_for('static', filename='logo6.svg') }}" alt="">
+                </div>
+            </div>
+
+            <div class="i1">
+                <img src="{{ url_for('static', filename='i1.jpg') }}" alt="" style="border-radius: 30px;">
+            </div>
+       
+   
+
+            <div class="i2" >
+                <img src="{{ url_for('static', filename='i2.jpg') }}" alt=""  style="border-radius: 10px;">
+                <img src="{{ url_for('static', filename='i3.avif') }}" alt=""  style="border-radius: 10px;">
+                <img src="{{ url_for('static', filename='i5.jpg') }}" alt="" style="height:332px;border-radius: 10px; margin-top: 5px;">
+                <img src="{{ url_for('static', filename='i4.webp') }}" alt=""  style="border-radius: 10px;">
+            </div>
+        </div>
+        </div>
+    
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-heading">
+                <img class="Companylogo1"src="{{ url_for('static', filename='logo.png') }}" alt="">
+                <h1>BullBearhub</h1>
+            </div>
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h2>About Us</h2>
+                    <ul>
+                        <li><a href="#company">Company</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#careers">Features</a></li>
+                        <li><a href="#careers">Partners</a></li>
+                        <li><a href="#careers">Security</a></li>
+                        <li><a href="#careers">Roadmap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h2>Services</h2>
+                    <ul>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#reviews">Reviews</a></li>
+                        <li><a href="#careers">Product</a></li>
+                        <li><a href="#careers">Skill</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h2>Support</h2>
+                    <ul>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#careers">Security</a></li>
+                        <li><a href="#careers">Docs</a></li>
+                        <li><a href="#careers">Premium Support</a></li>
+                        <li><a href="#careers">Status</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom" style="height: 10px;">
+            <div class="footer-copy">
+                
+                <p>&copy; 2024 StockMarket. All rights reserved.</p>
+                <a href="#" >Terms</a>
+                <a href="#">Privacy (Updated 08/2024)</a>
+                <a href="#">Manage cookies</a>
+                <a href="#">Do not share my personal information</a>
+            </div>
+            <div class="footer-social">
+                <i class="fa-brands fa-x-twitter"></i>
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-linkedin"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-youtube"></i>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('register-link').addEventListener('click', function(e) {
+          e.preventDefault();
+          const container = document.getElementById('registration-container');
+          
+          if (container.classList.contains('active')) {
+              // If the container is already active, remove the content and hide it
+              container.classList.remove('active');
+              container.innerHTML = '';
+           } 
+           else {
+              // If the container is not active, load the content and show it
+              fetch('register.html')
+                  .then(response => response.text())
+                  .then(data => {
+                      container.innerHTML = data;
+                      container.classList.add('active');
+                  })
+                  .catch(error => console.error('Error loading registration form:', error));
+          }
+      });
+    </script>
+    <script>
+        document.getElementById('login-link').addEventListener('click', function(e) {
+          e.preventDefault();
+          const container = document.getElementById('login-container');
+          
+          if (container.classList.contains('active')) {
+              // If the container is already active, remove the content and hide it
+              container.classList.remove('active');
+              container.innerHTML = '';
+           } 
+           else {
+              // If the container is not active, load the content and show it
+              fetch('login.html')
+                  .then(response => response.text())
+                  .then(data => {
+                      container.innerHTML = data;
+                      container.classList.add('active');
+                  })
+                  .catch(error => console.error('Error loading registration form:', error));
+          }
+      });
+    </script>
+    
+    
+
+</body>
+</html>

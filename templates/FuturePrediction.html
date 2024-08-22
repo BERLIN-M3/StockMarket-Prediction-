@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Prediction</title>
+    <!-- Include Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.12.1/plotly.min.js"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+
+  
+</head>
+<body>
+    <div class="root">
+        <nav class="navbar">
+            <div class="screenshot-container">
+                <img class="screenshot-2024-08-03-232051-1" loading="lazy" alt="" src="{{url_for('static', filename='logo.png')}}">
+                <div class="sharemarket-wrapper">BullBearHub</div>
+            </div>
+            <form method="post" class="form-inline">
+                <div class="form-group">
+                    <label class="search-stock" for="stockInput">Search Stock:</label>
+                    <div class="dropdown">
+                        <input type="text" class="form-control" id="stockInput" name="stock" autocomplete="off">
+                        <div id="suggestions" class="dropdown-menu"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Get Stock Data</button>
+                </div>
+            </form>
+            <div class="wrapper">
+                <button class="btn btn-outline-success" type="button" id="signoutbutton">Sign Out</button>
+                <div class="dropdownSignout" id="dropdownMenu">
+                  <a href="#">Profile</a>
+                  <a href="#">Settings</a>
+                  <a href="#">Logout</a>
+                </div>
+              </div>
+        </nav>
+    </div>
+   
+    <h1 style="font-size: 28px" style="font-family: Arial, Helvetica, sans-serif;" >Stock Price Prediction for {{ stock }}</h1>
+    
+    <h2>Stock Price Graph</h2>
+    <div>
+        {{ graph|safe }}
+    </div>
+
+    <h2>Predicted Prices Table</h2>
+    <div>
+        {{ table|safe }}
+    </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-heading">
+                <img class="screenshot-2024-08-03-232051-1" loading="lazy" alt="" src="{{url_for('static', filename='logo.png')}}">
+                <h1>BullBearHub</h1>
+            </div>
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h2>About Us</h2>
+                    <ul>
+                        <li><a href="#company">Company</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#careers">Features</a></li>
+                        <li><a href="#careers">Partners</a></li>
+                        <li><a href="#careers">Security</a></li>
+                        <li><a href="#careers">Roadmap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h2>Services</h2>
+                    <ul>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#reviews">Reviews</a></li>
+                        <li><a href="#careers">Product</a></li>
+                        <li><a href="#careers">Skill</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h2>Support</h2>
+                    <ul>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#careers">Security</a></li>
+                        <li><a href="#careers">Docs</a></li>
+                        <li><a href="#careers">Premium Support</a></li>
+                        <li><a href="#careers">Status</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom" style="height: 10px;">
+            <div class="footer-copy">
+                
+                <p>&copy; 2024 StockMarket. All rights reserved.</p>
+                <a href="#" >Terms</a>
+                <a href="#">Privacy (Updated 08/2024)</a>
+                <a href="#">Manage cookies</a>
+                <a href="#">Do not share my personal information</a>
+            </div>
+            <div class="footer-social">
+                <i class="fa-brands fa-x-twitter"></i>
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-linkedin"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-youtube"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            $('#stockInput').on('input', function() {
+                var query = $(this).val();
+                if (query.length > 2) {
+                    $.ajax({
+                        url: '/search_suggestions',
+                        type: 'GET',
+                        data: { query: query },
+                        success: function(data) {
+                            var suggestions = $('#suggestions');
+                            suggestions.empty();
+                            if (data.length) {
+                                data.forEach(function(item) {
+                                    var suggestionHTML = `
+                                        <a class="dropdown-item" data-stock-id="${item.StockID}" 
+                                           data-name="${item.Name}" data-country="${item.Country}" 
+                                           data-category="${item['Category Name']}">
+                                           ${item.Name} (${item.StockID}) - ${item.Country} - ${item['Category Name']}
+                                        </a>`;
+                                    suggestions.append(suggestionHTML);
+                                });
+                                suggestions.show();
+                            } else {
+                                suggestions.append('<a class="dropdown-item disabled">No suggestions</a>');
+                                suggestions.show();
+                            }
+                        },
+                        error: function() {
+                            $('#suggestions').empty().append('<a class="dropdown-item disabled">Error fetching suggestions</a>').show();
+                        }
+                    });
+                } else {
+                    $('#suggestions').hide();
+                }
+            });
+
+            $(document).on('click', '.dropdown-item', function() {
+                var stockID = $(this).data('stock-id');
+                $('#stockInput').val(stockID); // Set the StockID in the input field
+                $('#suggestions').hide(); // Hide the suggestions dropdown
+            });
+
+            $(document).click(function(event) {
+                if (!$(event.target).closest('.dropdown').length) {
+                    $('#suggestions').hide();
+                }
+            });
+        });
+    </script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+<script>
+    let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+    let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+
+    let MsgHead = document.getElementById('msg');
+    let GreetHead = document.getElementById('greet');
+    let SignoutBtn = document.getElementById('signoutbutton');
+
+
+
+    let Signout = () => {
+        sessionStorage.removeItem("user-creds");
+        sessionStorage.removeItem("user-info");
+        window.location.href = "{{ url_for('main1') }}"
+    }
+
+    let CheckCred = () => {
+        if (!sessionStorage.getItem("user-creds"))
+            window.location.href = "{{ url_for('main1') }}"
+        else {
+            MsgHead.innerText = `user with email "${UserCreds.email}" logged in`;
+            GreetHead.innerText = `welcome ${UserInfo.firstname + " " + UserInfo.lastname}!`;
+        }
+    }
+    window.addEventListener('load', CheckCred);
+    SignoutBtn.addEventListener('click', Signout);
+
+
+
+</script>
+    
+</body>
+</html>
